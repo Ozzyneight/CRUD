@@ -27,9 +27,7 @@
         </div>
     </div>
 </nav>
-@yield('user')
-@yield('users')
-@yield('userEdit')
-@yield('userCreate')
+@yield('content')
+
 </body>
 </html>

@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateController extends Controller
 {
-    public function update(User $user)
+    public function update(User $user, CreateUserRequest $request)
     {
-        $data = request()->validate([
-            'first_name' => 'string|required',
-            'last_name' => 'string|required',
-            'middle_name' => 'string|required',
-            'email' => 'string|required',
-            'date_of_birthday' => 'date|required',
-            'password' => 'string|required',
-        ]);
+        $data = $request->validated();
+        $data['image'] = Storage::put('public/images', $data['image']);
         $user->updateOrFail($data);
         return redirect()->route('users.index');
     }
