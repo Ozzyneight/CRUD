@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <nav style="padding: 0 20px"  class="d-flex justify-items-center justify-content-between">
+    <nav style="padding: 0 20px;"  class="d-flex justify-items-center justify-content-between">
         <div class="d-flex justify-content-between flex-fill d-sm-none">
             <ul class="pagination">
                 {{-- Previous Page Link --}}
@@ -39,7 +39,7 @@
                 </p>
             </div>
 
-            <div>
+            <div style="margin-right: 33%">
                 <ul class="pagination">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())

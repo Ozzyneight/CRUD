@@ -11,7 +11,8 @@
         <hr>
         <div class="col-12">
             <label for="inputLastName" class="form-label">Фамилия</label>
-            <input value="{{ old('last_name') }}" type="text" class="form-control" id="inputLastName" name="last_name" required
+            <input value="{{ old('last_name') }}" type="text" class="form-control" id="inputLastName" name="last_name"
+                   required
                    placeholder="Введите фамилию">
             @error('last_name')
             <p class="text-danger">{{ $message }}</p>
@@ -19,7 +20,8 @@
         </div>
         <div class="col-12">
             <label for="inputFirstName" class="form-label">Имя</label>
-            <input value="{{ old('first_name') }}" type="text" class="form-control" id="inputFirstName" name="first_name" required
+            <input value="{{ old('first_name') }}" type="text" class="form-control" id="inputFirstName"
+                   name="first_name" required
                    placeholder="Введите Имя">
             @error('first_name')
             <p class="text-danger">{{ $message }}</p>
@@ -27,12 +29,14 @@
         </div>
         <div class="col-12">
             <label for="inputMiddleName" class="form-label">Отчество</label>
-            <input value="{{ old('middle_name') }}" type="text" class="form-control" id="inputMiddleName" name="middle_name"
+            <input value="{{ old('middle_name') }}" type="text" class="form-control" id="inputMiddleName"
+                   name="middle_name"
                    placeholder="Введите отчество">
         </div>
         <div class="col-12">
             <label for="inputDateOfBirthday" class="form-label">Дата рождения</label>
-            <input value="{{ old('date_of_birthday') }}" type="date" class="form-control" id="inputDateOfBirthday" name="date_of_birthday" required
+            <input value="{{ old('date_of_birthday') }}" type="date" class="form-control" id="inputDateOfBirthday"
+                   name="date_of_birthday" required
                    placeholder="Введите дату рождения">
             @error('date_of_birthday')
             <p class="text-danger">{{ $message }}</p>
@@ -40,7 +44,8 @@
         </div>
         <div class="col-12">
             <label for="inputEmail" class="form-label">Почта</label>
-            <input value="{{ old('email') }}" type="text" class="form-control" id="inputEmail" name="email" required placeholder="Введите почту">
+            <input value="{{ old('email') }}" type="text" class="form-control" id="inputEmail" name="email" required
+                   placeholder="Введите почту">
             @error('email')
             <p class="text-danger">{{ $message }}</p>
             @enderror

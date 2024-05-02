@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 
@@ -8,6 +8,6 @@ class CreateController extends Controller
 {
     public function create()
     {
-        return view('user.create-user');
+        return view('category.create-category');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $date_of_birthday
  * @property string $email
  * @property mixed $password
+ * @property string|null $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
@@ -26,12 +26,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMiddleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @property string $image
- * @method static \Illuminate\Database\Eloquent\Builder|User whereImage($value)
  * @mixin \Eloquent
  */
 class User extends Model
@@ -49,7 +48,7 @@ class User extends Model
         'image'
     ];
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }
@@ -64,9 +63,9 @@ class User extends Model
         return $this->first_name;
     }
 
-    public function setFirstName(string $first_name): void
+    public function setFirstName(string $firstName): void
     {
-        $this->first_name = $first_name;
+        $this->first_name = $firstName;
     }
 
     public function getLastName(): string
@@ -74,9 +73,9 @@ class User extends Model
         return $this->last_name;
     }
 
-    public function setLastName(string $last_name): void
+    public function setLastName(string $lastName): void
     {
-        $this->last_name = $last_name;
+        $this->last_name = $lastName;
     }
 
     public function getMiddleName(): ?string
@@ -84,9 +83,9 @@ class User extends Model
         return $this->middle_name;
     }
 
-    public function setMiddleName(?string $middle_name): void
+    public function setMiddleName(?string $middleName): void
     {
-        $this->middle_name = $middle_name;
+        $this->middle_name = $middleName;
     }
 
     public function getDateOfBirthday(): string
@@ -94,9 +93,9 @@ class User extends Model
         return $this->date_of_birthday;
     }
 
-    public function setDateOfBirthday(string $date_of_birthday): void
+    public function setDateOfBirthday(string $dateOfBirthday): void
     {
-        $this->date_of_birthday = $date_of_birthday;
+        $this->date_of_birthday = $dateOfBirthday;
     }
 
     public function getEmail(): string

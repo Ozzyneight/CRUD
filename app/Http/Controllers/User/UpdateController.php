@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CreateUserRequest;
-use App\Models\User;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateController extends Controller
 {
-    public function update(User $user, CreateUserRequest $request)
+    public function update(User $user, UpdateUserRequest $request)
     {
-        $data = $request->validated();
-        $data['image'] = Storage::put('public/images', $data['image']);
+        $data = $request->all();
+        $data['image'] = Storage::put('public/images/users', $data['image']);
         $user->updateOrFail($data);
         return redirect()->route('users.index');
     }

@@ -3,10 +3,10 @@
 
     <div style="border:solid 1px darkgray; border-radius: 10px; width: 80%; margin: 2% 10% 2% 10%">
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h2 style="margin: 10px 10px 0 10px">
-                Пользователи</h2>
-            <a href="{{ route('user.create') }}">
+                Продукты</h2>
+            <a href="{{ route('product.create') }}">
                 <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Добавить
-                    пользователя
+                    продукт
                 </button>
             </a></div>
         <hr>
@@ -15,46 +15,43 @@
             <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
-                <th scope="col">Дата рождения</th>
-                <th scope="col">Почта</th>
+                <th scope="col">Название</th>
+                <th scope="col">Вес, г</th>
+                <th scope="col">Количество, ед.</th>
+                <th scope="col">Стоимость, руб.</th>
+                <th scope="col">Категория</th>
+                <th scope="col">Дата поставки</th>
                 <th scope="col">Действие</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($products as $product)
                 <tr>
-                    <th scope="row">{{ $user->getKey() }}</th>
-                    <td><a href="{{ route('user.show', $user->getKey()) }}">{{ $user->getLastName() }}</a></td>
-                    <td>{{ $user->getFirstName()}}</td>
-                    <td>{{ $user->getMiddleName() }}</td>
-                    <td>{{ $user->getDateOfBirthday() }}</td>
-                    <td>{{ $user->getEmail() }}</td>
+                    <th scope="row">{{ $product->getKey() }}</th>
+                    <td><a href="{{ route('product.show', $product->getKey()) }}">{{ $product->getTitle() }}</a></td>
+                    <td>{{ $product->getWeight()}}</td>
+                    <td>{{ $product->getAmount() }}</td>
+                    <td>{{ $product->getCost() }}</td>
+                    <td>{{ $product->category->getTitle() }}</td>
+                    <td>{{ $product->getDateOfDelivery() }}</td>
                     <td style="display: flex; justify-content: space-evenly">
-                        <a href="{{ route('user.edit', $user->getKey()) }}">
+                        <a href="{{ route('product.edit', $product->getKey()) }}">
                             <button type="button" class="btn btn-secondary"
                                     style="font-size: 10pt; padding: 3px; margin: 3px">Редактировать
                             </button>
                         </a>
-                        <form action="{{ route('user.destroy', $user->getKey()) }}" method="post">
+                        <form action="{{ route('product.destroy', $product->getKey()) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-secondary"
                                     style="font-size: 10pt; padding: 3px; margin: 3px">Удалить
                             </button>
                         </form>
-                        <a href="{{ route('user.edit_password', $user->getKey()) }}">
-                            <button type="button" class="btn btn-secondary"
-                                    style="font-size: 10pt; padding: 3px; margin: 3px">Изменить пароль
-                            </button>
-                        </a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
-    <div>{{ $users->links() }}</div>
+    <div>{{ $products->links() }}</div>
 @endsection
