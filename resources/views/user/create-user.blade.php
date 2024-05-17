@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
     <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data" class="row g-3"
           style="border:solid 1px darkgray; border-radius: 10px; width: 80%; margin: 2% 10% 2% 10%">
@@ -63,6 +63,17 @@
             <input value="{{ old('image') }}" class="form-control" type="file" id="image" name="image" required>
             @error('image')
             <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="selectRole" class="form-label">Выберите роль</label>
+            <select id="selectRole" name="role" class="form-select">
+                @foreach($roles as $id => $role)
+                    <option value="{{ $id }}" {{ $id == old('role') ? ' selected' : '' }}>{{ $role }}</option>
+                @endforeach
+            </select>
+            @error('role')
+            <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
         <div class="col-12 mb-2">

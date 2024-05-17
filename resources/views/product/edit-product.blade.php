@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 
     <form action="{{ route('product.update', $product->getKey()) }}" method="post" enctype="multipart/form-data"
@@ -70,7 +70,12 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Загрузить фотографию</label>
-            <input value="{{ $product->getImage() }}" class="form-control" type="file" id="image" name="image" required>
+            <div id="image" style="display: flex">
+                <img style="margin-left:20px; height: 100px; width: 100px"
+                     src="{{ $product->getFirstMediaUrl('products', 'product') }}" alt="Миниатюра">
+                <input style="margin-top: 18px; margin-left: 20px; height: 38px" class="form-control" type="file"
+                       name="image" required>
+            </div>
             @error('image')
             <span class="text-danger">{{ $message }}</span>
             @enderror

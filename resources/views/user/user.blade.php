@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 
     <div style="border:solid 1px darkgray; border-radius: 10px; width: 80%; margin: 2% 10% 2% 10%">
@@ -25,7 +25,8 @@
             <tbody>
             <tr>
                 <th scope="row">{{ $user->getKey() }}</th>
-                <td><img style="height: 100px; width: 100px" src="{{ $image }}" alt="Аватар"></td>
+                <td><img style="margin-left:20px; height: 100px; width: 100px"
+                         src="{{ $user->getFirstMediaUrl('avatars', 'avatar') }}" alt="Аватар"></td>
                 <td>{{ $user->getLastName() }}</td>
                 <td>{{ $user->getFirstName() }}</td>
                 <td>{{ $user->getMiddleName() }}</td>

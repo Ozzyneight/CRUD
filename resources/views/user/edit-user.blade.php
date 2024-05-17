@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 
     <form action="{{ route('user.update', $user->getKey()) }}" method="post" enctype="multipart/form-data"
@@ -52,12 +52,24 @@
         <div class="mb-3">
             <label for="image" class="form-label">Изменить аватар</label>
             <div id="image" style="display: flex">
-                <img style="margin-left:20px; height: 70px; width: 70px" src="{{ $image }}" alt="Аватар">
+                <img style="margin-left:20px; height: 100px; width: 100px"
+                     src="{{ $user->getFirstMediaUrl('avatars', 'avatar') }}" alt="Аватар">
                 <input style="margin-top: 18px; margin-left: 20px; height: 38px" class="form-control" type="file"
                        name="image">
             </div>
             @error('image')
             <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="selectRole" class="form-label">Выберите роль</label>
+            <select id="selectRole" name="role" class="form-select">
+                @foreach($roles as $id => $role)
+                    <option value="{{ $id }}" {{ $id == $user->role ? ' selected' : '' }}>{{ $role }}</option>
+                @endforeach
+            </select>
+            @error('role')
+            <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
         <div class="col-12 mb-2">

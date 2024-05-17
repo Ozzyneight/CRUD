@@ -28,7 +28,8 @@ class UserFactory extends Factory
             'middle_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'date_of_birthday' => fake()->date(),
-            'password' => static::$password ??= Hash::make('password')
+            'password' => static::$password ??= Hash::make('password'),
+            'role' => '0',
         ];
     }
 }

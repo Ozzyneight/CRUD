@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 
     <form action="{{ route('category.update', $category->getKey()) }}" method="post" class="row g-3"

@@ -4,6 +4,11 @@ namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  *
@@ -16,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property mixed $password
  * @property string|null $image
+ * @property int $role
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -26,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMiddleName($value)
@@ -33,9 +40,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Model
+class User extends Model implements AuthenticatableContract, HasMedia
 {
-    use HasFactory;
+    use HasFactory, Authenticatable, InteractsWithMedia;
+
+    const ROLE_ADMIN = 0;
+    const ROLE_MANAGER = 1;
+    const ROLE_USER = 2;
+
+    protected static function getRoles(): array
+    {
+        return [
+            self::ROLE_ADMIN => 'Администратор',
+            self::ROLE_MANAGER => 'Менеджер',
+            self::ROLE_USER => 'Пользователь',
+        ];
+    }
 
     protected $table = 'users';
     protected $fillable = [
@@ -45,8 +65,35 @@ class User extends Model
         'email',
         'date_of_birthday',
         'password',
-        'image'
+        'image',
+        'role'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('avatars')
+            ->useFallbackUrl('/storage/images/users/place-holder-image.png', 'avatar')
+            ->useFallbackPath(public_path('/storage//images/users/place-holder-image.png'), 'avatar');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+            ->width(100)
+            ->height(100)
+            ->nonOptimized();
+    }
+
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    public function setRole(int $role): void
+    {
+        $this->role = $role;
+    }
 
     public function getImage(): ?string
     {
@@ -117,6 +164,7 @@ class User extends Model
     {
         $this->password = $password;
     }
+
     protected $casts = [
         'password' => 'hashed',
     ];

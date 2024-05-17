@@ -29,6 +29,7 @@ class CreateUserRequest extends FormRequest
             'date_of_birthday' => 'date|required|max:10|before_or_equal:today',
             'password' => 'string|max:255|required',
             'image' => 'image|required',
+            'role' => 'integer|required'
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => '\App\Http\Controllers\User'], function () {
+Route::group(['namespace' => '\App\Http\Controllers\User', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/users', 'IndexController@index')->name('users.index');
     Route::get('user/{user}', 'ShowController@show')->name('user.show');
     Route::get('users/create', 'CreateController@create')->name('user.create'); // добавил к user окончание, т.к. иначе выдавало ошибку.
@@ -24,20 +25,24 @@ Route::group(['namespace' => '\App\Http\Controllers\User'], function () {
     Route::patch('user/password/{user}', 'UpdatePasswordController@update')->name('user.update_password');
     Route::delete('user/{user}', 'DestroyController@destroy')->name('user.destroy');
 });
-Route::group(['namespace' => '\App\Http\Controllers\Product'], function () {
-    Route::get('/', 'IndexController@index')->name('products.index');
-    Route::get('/{product}', 'ShowController@show')->name('product.show');
+Route::group(['namespace' => '\App\Http\Controllers\Product', 'middleware' => ['auth', 'none']], function () {
+    Route::get('/products', 'IndexController@index')->name('products.index');
+    Route::get('products/{product}', 'ShowController@show')->name('product.show');
     Route::get('product/create', 'CreateController@create')->name('product.create');
-    Route::post('/', 'StoreController@store')->name('product.store');
-    Route::get('/{product}/edit', 'EditController@edit')->name('product.edit');
-    Route::patch('/{product}', 'UpdateController@update')->name('product.update');
-    Route::delete('/{product}', 'DestroyController@destroy')->name('product.destroy');
+    Route::post('/products', 'StoreController@store')->name('product.store');
+    Route::get('products/{product}/edit', 'EditController@edit')->name('product.edit');
+    Route::patch('products/{product}', 'UpdateController@update')->name('product.update');
+    Route::delete('products/{product}', 'DestroyController@destroy')->name('product.destroy');
 });
-Route::group(['namespace' => '\App\Http\Controllers\Category'], function () {
-    Route::get('/categories/s', 'IndexController@index')->name('categories.index');
+Route::group(['namespace' => '\App\Http\Controllers\Category', 'middleware' => ['auth', 'manager']], function () {
+    Route::get('/categories', 'IndexController@index')->name('categories.index');
     Route::get('category/create', 'CreateController@create')->name('category.create');
     Route::post('category/', 'StoreController@store')->name('category.store');
     Route::get('category/{category}/edit', 'EditController@edit')->name('category.edit');
     Route::patch('category/{category}', 'UpdateController@update')->name('category.update');
     Route::delete('category/{category}', 'DestroyController@destroy')->name('category.destroy');
 });
+
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

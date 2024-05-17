@@ -5,16 +5,13 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class EditController extends Controller
 {
-    public function edit(User $user)
+    public function edit(User $user): view
     {
-        if ($user->getImage() != null) {
-            $image = Storage::disk()->url($user->getImage());
-        } else {
-            $image = Storage::disk()->url('public/images/users/place-holder-image.png');
-        }
-        return view('user.edit-user', ['user' => $user, 'image' => $image]);
+        $roles = User::getRoles();
+        return view('user.edit-user', ['user' => $user, 'roles' => $roles]);
     }
 }

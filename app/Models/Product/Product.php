@@ -4,6 +4,10 @@ namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  *
@@ -33,9 +37,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'products';
     protected $fillable = [
@@ -47,6 +51,22 @@ class Product extends Model
         'date_of_delivery',
         'image'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('products')
+            ->useFallbackUrl('/storage/images/products/place-holder-image.png', 'product')
+            ->useFallbackPath(public_path('/storage//images/products/place-holder-image.png'), 'product');
+    }
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('product')
+            ->width(70)
+            ->height(70)
+            ->nonOptimized();
+    }
+
 
     public function getCost(): string
     {
@@ -118,7 +138,7 @@ class Product extends Model
         $this->image = $image;
     }
 
-    public function category()
+    public function category(): belongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }

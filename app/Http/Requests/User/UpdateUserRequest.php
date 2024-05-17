@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'email' => ['email', 'max:100', 'required', Rule::unique('users')->ignore($user->id)],
             'date_of_birthday' => 'date|required|max:10|before_or_equal:today',
             'image' => 'image|required',
+            'role' => 'integer|required'
         ];
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('content')
 
     <form action="{{ route('user.update_password', $user->getKey()) }}" method="post" class="row g-3"
