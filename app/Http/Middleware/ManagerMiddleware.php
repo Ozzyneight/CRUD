@@ -17,7 +17,7 @@ class ManagerMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ((int) auth()->user()->role == User::ROLE_USER){
-            abort(404);
+            abort(403);
         }
         return $next($request);
     }

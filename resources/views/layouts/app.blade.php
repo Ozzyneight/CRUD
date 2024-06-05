@@ -60,7 +60,7 @@
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Вход') }}</a>
                         </li>
                     @endif
 
@@ -70,6 +70,14 @@
                         </li>
                     @endif
                 @else
+                    @can('show-cart')
+                        <li class="nav-item" style="padding-right: 10%">
+                            <a style="text-align: end" href="{{ route('cart.index') }}">
+                                <button type="button" class="btn btn-secondary" style="height: 90%; position: relative; top: 4%; left: 0.2%;">Корзина
+                                </button>
+                            </a>
+                        </li>
+                    @endcan
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

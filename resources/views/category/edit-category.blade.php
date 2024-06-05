@@ -8,7 +8,7 @@
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h3 style="margin: 10px 10px 0 10px">Отредактировать
                 категорию</h3>
             <a style="text-align: end" href="{{ route('categories.index') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Назад</button>
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 5%; left: -7%">Назад</button>
             </a></div>
         <hr>
         <div class="col-12">

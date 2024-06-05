@@ -5,18 +5,18 @@
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h2 style="margin: 10px 10px 0 10px">
                 Категории</h2>
             <a href="{{ route('category.create') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Добавить
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 20%; left: 33%">Добавить
                     категорию
                 </button>
             </a></div>
         <hr>
         <table class="table table-striped"
-               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px">
+               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px; text-align: center">
             <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col" style="width: 5%">ID</th>
                 <th scope="col" style="width: 800px">Название категории</th>
-                <th scope="col">Действие</th>
+                <th scope="col" style="width: 20%">Действие</th>
             </tr>
             </thead>
             <tbody>

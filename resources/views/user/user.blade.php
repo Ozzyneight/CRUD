@@ -5,11 +5,11 @@
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h2 style="margin: 10px 10px 0 10px">
                 Пользователь</h2>
             <a style="text-align: end" href="{{ route('users.index') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Назад</button>
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 20%; left: -7%">Назад</button>
             </a></div>
         <hr>
         <table class="table table-striped"
-               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px">
+               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px; text-align: center;">
             <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -25,7 +25,7 @@
             <tbody>
             <tr>
                 <th scope="row">{{ $user->getKey() }}</th>
-                <td><img style="margin-left:20px; height: 100px; width: 100px"
+                <td><img style="margin-left:20px; height: 120px; width: 120px"
                          src="{{ $user->getFirstMediaUrl('avatars', 'avatar') }}" alt="Аватар"></td>
                 <td>{{ $user->getLastName() }}</td>
                 <td>{{ $user->getFirstName() }}</td>

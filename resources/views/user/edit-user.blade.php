@@ -9,7 +9,7 @@
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h3 style="margin: 10px 10px 0 10px">Отредактировать
                 данные пользователя</h3>
             <a style="text-align: end" href="{{ route('users.index') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Назад</button>
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 10%; left: -7%">Назад</button>
             </a></div>
         <hr>
         <div class="col-12">
@@ -39,6 +39,14 @@
                    placeholder="Введите дату рождения" value="{{ $user->getDateOfBirthday() }}">
             @error('date_of_birthday')
             <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-12">
+            <label for="inputPhone" class="form-label">Телефон</label>
+            <input value="{{ old('phone') }}" type="text" class="form-control" id="inputPhone" name="phone" required
+                   placeholder="+7 (999)-999-99-99" maxlength="12">
+            @error('phone')
+            <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
         <div class="col-12">

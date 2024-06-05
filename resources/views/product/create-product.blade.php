@@ -3,10 +3,10 @@
     <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" class="row g-3"
           style="border:solid 1px darkgray; border-radius: 10px; width: 80%; margin: 2% 10% 2% 10%">
         @csrf
-        <div style="display: grid; grid-template-columns: 4fr 1fr"><h3 style="margin: 10px 10px 0 10px">Добавить
-                продукт</h3>
+        <div style="display: grid; grid-template-columns: 4fr 1fr"><h2 style=" position: relative; top: 10%">Добавить
+                продукт</h2>
             <a style="text-align: end" href="{{ route('products.index') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Назад</button>
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 8%; left: -2%">Назад</button>
             </a></div>
         <hr>
         <div class="col-12">

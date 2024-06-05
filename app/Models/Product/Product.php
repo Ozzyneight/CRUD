@@ -2,9 +2,13 @@
 
 namespace App\Models\Product;
 
+use App\Models\User\Cart;
+use App\Models\User\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -35,6 +39,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
+ * @property-read \App\Models\Product\Category $category
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
+ * @property-read int|null $media_count
+ * @method static \Database\Factories\Product\ProductFactory factory($count = null, $state = [])
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Cart> $carts
+ * @property-read int|null $carts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read int|null $orders_count
  * @mixin \Eloquent
  */
 class Product extends Model implements HasMedia
@@ -56,8 +68,8 @@ class Product extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('products')
-            ->useFallbackUrl('/storage/images/products/place-holder-image.png', 'product')
-            ->useFallbackPath(public_path('/storage//images/products/place-holder-image.png'), 'product');
+            ->useFallbackUrl('/storage/place-holder-image.png', 'product')
+            ->useFallbackPath(public_path('/storage/place-holder-image.png'), 'product');
     }
     public function registerMediaConversions(Media $media = null): void
     {
@@ -140,6 +152,26 @@ class Product extends Model implements HasMedia
 
     public function category(): belongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class);
+    }
+
+    public function cart():BelongsToMany
+    {
+        return $this->belongsToMany(Cart::class);
+    }
+
+    public function orders():BelongsToMany
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    public function getOrders(): void
+    {
+        $this->orders;
     }
 }

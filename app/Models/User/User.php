@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -38,6 +41,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMiddleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
+ * @property-read int|null $media_count
+ * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
+ * @property string|null $phone
+ * @property-read \App\Models\User\Cart|null $carts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\Order> $orders
+ * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @mixin \Eloquent
  */
 class User extends Model implements AuthenticatableContract, HasMedia
@@ -64,24 +75,27 @@ class User extends Model implements AuthenticatableContract, HasMedia
         'middle_name',
         'email',
         'date_of_birthday',
+        'phone',
         'password',
         'image',
         'role'
     ];
-
+    protected $casts = [
+        'password' => 'hashed',
+    ];
     public function registerMediaCollections(): void
     {
         $this
             ->addMediaCollection('avatars')
-            ->useFallbackUrl('/storage/images/users/place-holder-image.png', 'avatar')
-            ->useFallbackPath(public_path('/storage//images/users/place-holder-image.png'), 'avatar');
+            ->useFallbackUrl('/storage/place-holder-image.png', 'avatar')
+            ->useFallbackPath(public_path('/storage/place-holder-image.png'), 'avatar');
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('avatar')
-            ->width(100)
-            ->height(100)
+            ->width(120)
+            ->height(120)
             ->nonOptimized();
     }
 
@@ -165,7 +179,22 @@ class User extends Model implements AuthenticatableContract, HasMedia
         $this->password = $password;
     }
 
-    protected $casts = [
-        'password' => 'hashed',
-    ];
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function getCart(): mixed
+    {
+        return $this->cart;
+    }
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
 }

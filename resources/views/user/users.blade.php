@@ -5,13 +5,13 @@
         <div style="display: grid; grid-template-columns: 4fr 1fr"><h2 style="margin: 10px 10px 0 10px">
                 Пользователи</h2>
             <a href="{{ route('user.create') }}">
-                <button type="button" class="btn btn-primary" style="height: 90%; margin: 5% 5% 0 0">Добавить
+                <button type="button" class="btn btn-primary" style="height: 90%; position: relative; top: 20%; left: 25%">Добавить
                     пользователя
                 </button>
             </a></div>
         <hr>
         <table class="table table-striped"
-               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px">
+               style="border:solid 1px darkgray; border-radius: 5px; width: 98%; margin: 10px;  text-align: center;">
             <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -20,7 +20,7 @@
                 <th scope="col">Отчество</th>
                 <th scope="col">Дата рождения</th>
                 <th scope="col">Почта</th>
-                <th scope="col">Действие</th>
+                <th scope="col" style="width: 25%">Действие</th>
             </tr>
             </thead>
             <tbody>

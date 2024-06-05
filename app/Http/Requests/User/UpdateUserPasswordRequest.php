@@ -22,7 +22,7 @@ class UpdateUserPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'string|max:255|required',
+            'password' => 'string|max:32|required',
         ];
     }
 }

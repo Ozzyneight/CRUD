@@ -43,6 +43,14 @@
             @enderror
         </div>
         <div class="col-12">
+            <label for="inputPhone" class="form-label">Телефон</label>
+            <input value="{{ old('phone') }}" type="text" class="form-control" id="inputPhone" name="phone" required
+                   placeholder="+7 (999)-999-99-99" maxlength="12">
+            @error('phone')
+            <p class="text-danger">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="col-12">
             <label for="inputEmail" class="form-label">Почта</label>
             <input value="{{ old('email') }}" type="text" class="form-control" id="inputEmail" name="email" required
                    placeholder="Введите почту">

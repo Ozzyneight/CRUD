@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('last_name', 50);
             $table->string('middle_name', 50)->nullable();
             $table->date('date_of_birthday');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('image');
             $table->timestamps();
